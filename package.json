@@ -3,5 +3,9 @@
   "uuid": "9ae06076-4f8e-4cd7-8969-6263a42bf858",
   "creator": {
     "version": "3.8.5"
+  },
+
+  "dependencies": {
+    "@nova-engine/ecs": "^1.1.1"
   }
-}
+  }
