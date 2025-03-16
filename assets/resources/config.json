@@ -1,0 +1,26 @@
+{
+  "time": 120,
+  "items":[
+    {
+      "category":"A",
+      "type":"Aitem0",
+      "points":"123",
+      "speed":1,
+      "weight":100
+    },
+    {
+      "category":"B",
+      "type":"Bitem0",
+      "points":"234",
+      "speed":1.2,
+      "weight":60
+    },
+    {
+      "category":"C",
+      "type":"Citem0",
+      "points":"345",
+      "speed":1.5,
+      "weight":15
+    }
+  ]
+}
