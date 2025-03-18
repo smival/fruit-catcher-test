@@ -890,7 +890,7 @@
     "_id": "7f3xUPPy5EyoGVovLhYii9"
   },
   {
-    "__type__": "98259+GSm9IBYhDsQx4us19",
+    "__type__": "0bfc725E/pJQ62BsaJcct7H",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -899,7 +899,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "_id": "26jneT8A1Le4xZB0DkVyEn"
+    "_id": "736AnERCpDc6TDG9NkzxXo"
   },
   {
     "__type__": "cc.UITransform",
