@@ -1,31 +1,29 @@
 import NovaECS from "@nova-engine/ecs";
 import { GameEngine } from "../../GameEngine";
-import { GameItem } from "../../types/GameConfig";
-import { inject } from "../../injects/inject";
-import { GameState } from "../../state/GameState";
+import {FruitItem} from "../../types/GameConfig";
 import { FruitComponent } from "../components/FruitComponent";
 import { MovementComponent } from "../components/MovementComponent";
 import { EntitiesFactory } from "../../factories/EntitiesFactory";
+import { Node, find } from "cc";
 
-export class SpawnSystem extends NovaECS.System {
+export class SpawnKillSystem extends NovaECS.System {
+    private readonly spawnZoneName: string = "ZoneSpawn";
+    private spawnZone: Node;
+
     protected family?: NovaECS.Family;
-    private _spawnItems: GameItem[] = [];
+    private _spawnItems: FruitItem[] = [];
     private _nextSpawnTime: number = 0;
-    private _spawnInterval: number = 2;
-    private _gameState: GameState = inject(GameState);
+    private _spawnInterval: number;
     private _engine: GameEngine | null = null;
-
-    constructor(priority: number) {
-        super();
-        this.priority = priority;
-    }
-
-    public initSpawnConfig(items: GameItem[]): void {
-        this._spawnItems = items;
-    }
 
     onAttach(engine: GameEngine): void {
         super.onAttach(engine);
+
+        this._spawnItems = engine.config.items;
+        this._spawnInterval = engine.config.rate;
+
+        this.spawnZone = find(`Canvas/${this.spawnZoneName}`);
+
         this._engine = engine;
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(FruitComponent)
@@ -34,9 +32,6 @@ export class SpawnSystem extends NovaECS.System {
     }
 
     public update(engine: GameEngine, delta: number): void {
-        const state = this._gameState.getState();
-        if (state.timeLeft <= 0) return;
-
         this._nextSpawnTime -= delta;
         if (this._nextSpawnTime <= 0) {
             this._spawnFruit();
@@ -56,12 +51,10 @@ export class SpawnSystem extends NovaECS.System {
     }
 
     private _spawnFruit(): void {
-        if (!this._engine) return;
-
         const totalWeight = this._spawnItems.reduce((sum, item) => sum + item.weight, 0);
         let randomWeight = Math.random() * totalWeight;
 
-        let selectedItem: GameItem | null = null;
+        let selectedItem: FruitItem | null = null;
         for (const item of this._spawnItems) {
             randomWeight -= item.weight;
             if (randomWeight <= 0) {
@@ -72,7 +65,7 @@ export class SpawnSystem extends NovaECS.System {
 
         if (!selectedItem) return;
 
-        const entity = EntitiesFactory.createFruitEntity(selectedItem);
+        const entity = EntitiesFactory.createFruitEntity(selectedItem, this.spawnZone);
         this._engine.addEntity(entity);
     }
 }

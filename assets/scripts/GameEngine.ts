@@ -1,11 +1,12 @@
 import NovaECS from "@nova-engine/ecs";
-import { SpawnSystem } from "./ecs/systems/SpawnSystem";
-import { GameStateSystem } from "./ecs/systems/GameStateSystem";
+import { SpawnKillSystem } from "./ecs/systems/SpawnKillSystem";
 import { BasketMovementSystem } from "./ecs/systems/BasketMovementSystem";
+import { ViewSystem } from "./ecs/systems/ViewSystem";
 import { inject } from "./injects/inject";
 import { GameState } from "./state/GameState";
 import { GameConfig } from "./types/GameConfig";
-import {Utils} from "db://assets/scripts/utils/Utils";
+import { Utils } from "db://assets/scripts/utils/Utils";
+import { EntitiesFactory } from "db://assets/scripts/factories/EntitiesFactory";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
@@ -18,7 +19,11 @@ export class GameEngine extends NovaECS.Engine {
 
     constructor() {
         super();
-        this._initSystems();
+    }
+
+    public get config(): GameConfig
+    {
+        return this._config;
     }
 
     public static get instance(): GameEngine {
@@ -30,20 +35,11 @@ export class GameEngine extends NovaECS.Engine {
 
     public init(config: GameConfig): void {
         this._config = config;
-
-        // Устанавливаем начальное время из конфига
-        this._gameState.updateTime(config.time);
-
-        // Инициализируем системы с настройками из конфига
-        this._systemsList.forEach(system => {
-            if (system instanceof SpawnSystem) {
-                system.initSpawnConfig(config.items);
-            }
-        });
+        this._initSystems();
+        this._gameState.startTime(config.time);
     }
 
-    update(dt: number)
-    {
+    update(dt: number): boolean {
         const maxFPS = 60;
         const minFPS = 30;
         const frameTime = 1 / maxFPS;
@@ -60,14 +56,20 @@ export class GameEngine extends NovaECS.Engine {
                 this._time -= frameTime;
             }
         }
+
+        this._gameState.spendTime(frameTime * count);
+
+        return this._gameState.getState().timeLeft >= 1;
     }
 
     private _initSystems(): void {
         this._systemsList = [
-            new SpawnSystem(1),
-            new GameStateSystem(),
+            new SpawnKillSystem(),
+            new ViewSystem(),
             new BasketMovementSystem()
         ];
+
+        this.addEntity(EntitiesFactory.createBasketEntity());
 
         // Добавляем системы в движок
         this._systemsList.forEach(system => this.addSystem(system));

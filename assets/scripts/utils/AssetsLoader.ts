@@ -16,6 +16,14 @@ export class AssetsLoader {
 
 	public static loadPrefab(path: string):Promise<Prefab>
 	{
-		return;
+		return new Promise((resolve, reject) => {
+			resources.load(path, Prefab, (err, prefab) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(prefab);
+			});
+		});
 	}
 }

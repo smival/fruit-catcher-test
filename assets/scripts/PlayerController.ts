@@ -1,18 +1,20 @@
-import { _decorator, Component, Node, director, EventMouse } from 'cc';
-import { inject } from './injects/inject';
-import { GameState } from './state/GameState';
+import {_decorator, Component, EventMouse, find, Node, Vec2} from 'cc';
 
-const { ccclass, menu } = _decorator;
+import {inject} from './injects/inject';
+import {GameState} from './state/GameState';
+
+const { ccclass, menu, property } = _decorator;
 
 @ccclass('PlayerController')
 @menu('**App/PlayerController')
 export class PlayerController extends Component {
     private _gameState: GameState = inject(GameState);
-
     onLoad() {
-        director.getScene().getChildByName("Canvas").on(Node.EventType.MOUSE_MOVE,
+        find("Canvas").on(Node.EventType.MOUSE_MOVE,
             (event: EventMouse) => {
-                this._gameState.setBasketTargetPosition(event.getLocation().x);
+
+                const mousePos: Vec2 = event.getLocation();
+                this._gameState.setBasketTargetPosition(mousePos.x);
             }
         );
     }

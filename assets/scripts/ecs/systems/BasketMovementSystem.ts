@@ -1,14 +1,23 @@
 import NovaECS from "@nova-engine/ecs";
-import { GameEngine } from "../../GameEngine";
-import { BasketComponent } from "../components/BasketComponent";
-import { MovementComponent } from "../components/MovementComponent";
+import {GameEngine} from "../../GameEngine";
+import {BasketComponent} from "../components/BasketComponent";
+import {MovementComponent} from "../components/MovementComponent";
+import {find, Node} from "cc";
+import {GameState} from "db://assets/scripts/state/GameState";
+import {inject} from "db://assets/scripts/injects/inject";
 
 export class BasketMovementSystem extends NovaECS.System {
+    private readonly basketZoneName: string = "ZoneBasket";
+    private basketZone: Node;
+
+    private _gameState: GameState = inject(GameState);
     protected family?: NovaECS.Family;
 
     public onAttach(engine: GameEngine): void {
         super.onAttach(engine);
-        
+
+        this.basketZone = find(`Canvas/${this.basketZoneName}`);
+
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(BasketComponent)
             .include(MovementComponent)
@@ -16,30 +25,11 @@ export class BasketMovementSystem extends NovaECS.System {
     }
 
     public update(engine: GameEngine, delta: number): void {
-        if (!this.family) return;
 
-        // Обновляем позиции всех корзин
         this.family.entities.forEach(entity => {
-            const basket = entity.getComponent<BasketComponent>(BasketComponent);
-            const movement = entity.getComponent<MovementComponent>(MovementComponent);
-            
-            if (!basket || !movement) return;
-
-            // Плавное движение корзины к целевой позиции
-            const currentPos = movement.currentX;
-            const targetPos = basket.targetX;
-
-            if (Math.abs(currentPos - targetPos) > 0.1) {
-                // Интерполяция между текущей и целевой позицией
-                const newX = currentPos + (targetPos - currentPos) * basket.smoothing;
-
-                // Ограничение скорости движения
-                const maxMove = basket.moveSpeed * delta;
-                const actualMove = Math.min(Math.abs(newX - currentPos), maxMove);
-                const direction = newX > currentPos ? 1 : -1;
-
-                movement.currentX = currentPos + actualMove * direction;
-            }
+            const movementComp = entity.getComponent(MovementComponent);
+            movementComp.currentX = this._gameState.getState().basketPositionX;
+            movementComp.currentY = this.basketZone.getWorldPosition().y;
         });
     }
 }

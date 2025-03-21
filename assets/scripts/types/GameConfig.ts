@@ -1,11 +1,13 @@
-import {EItemsCategory} from "db://assets/scripts/EItemsCategory";
+import {EItemsCategory} from "db://assets/scripts/types/EItemsCategory";
 
 export interface GameConfig {
 	time: number;
-	items: GameItem[];
+	rate: number;
+	items: FruitItem[];
 }
 
-export interface GameItem {
+export interface FruitItem
+{
 	category: EItemsCategory,
 	type: string,
 	points: number,

@@ -18,7 +18,7 @@ export class FormatUtils
 		}
 
 		const mm = Math.floor(value / 60);
-		const ss = value % 60;
+		const ss = Math.floor(value % 60);
 
 		return (mm < 10 ? "0" : "") + mm + ":" + (ss < 10 ? "0" : "") + ss;
 	}

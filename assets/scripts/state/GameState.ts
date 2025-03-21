@@ -9,21 +9,32 @@ export class GameState implements IGameStateReader, IGameStateWriter {
 
     public setBasketTargetPosition(x: number): void {
         this._basketTargetX = x;
+        //console.log("setBasketTargetPosition", this._basketTargetX);
     }
 
     public addScore(points: number): void {
         this._score += points;
     }
 
-    public updateTime(timeLeft: number): void {
+    public startTime(timeLeft: number): void {
         this._timeLeft = timeLeft;
+    }
+
+    public spendTime(time: number): void {
+        this._timeLeft -= time;
     }
 
     public getState(): IGameState {
         return {
             timeLeft: this._timeLeft,
             score: this._score,
-            basketPosition: { x: this._basketTargetX }
+            basketPositionX: this._basketTargetX
         };
+    }
+
+    public clean(): void {
+        this._timeLeft = 0;
+        this._score = 0;
+        this._basketTargetX = 0;
     }
 }
