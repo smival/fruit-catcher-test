@@ -1,4 +1,4 @@
-import {EItemsCategory} from "db://assets/scripts/types/EItemsCategory";
+import {EItemsCategory} from "./EItemsCategory";
 
 export interface GameConfig {
 	time: number;

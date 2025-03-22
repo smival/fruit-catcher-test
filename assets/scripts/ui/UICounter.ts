@@ -1,7 +1,7 @@
 import { _decorator, Component, CCString, Label, Enum } from 'cc';
-import {formatHandlers, FormatType} from "db://assets/scripts/utils/FormatUtils";
-import {GameState} from "db://assets/scripts/state/GameState";
-import {inject} from "db://assets/scripts/injects/inject";
+import {formatHandlers, FormatType} from "../utils/FormatUtils";
+import {GameState} from "../state/GameState";
+import {inject} from "../injects/inject";
 
 const { ccclass, menu, property, requireComponent } = _decorator;
 

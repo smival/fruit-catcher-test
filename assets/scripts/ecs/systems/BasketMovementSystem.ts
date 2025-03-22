@@ -2,9 +2,9 @@ import NovaECS from "@nova-engine/ecs";
 import {BasketComponent} from "../components/BasketComponent";
 import {MovementComponent} from "../components/MovementComponent";
 import {find, Node} from "cc";
-import {GameState} from "db://assets/scripts/state/GameState";
-import {inject} from "db://assets/scripts/injects/inject";
-import {GameEngine} from "db://assets/scripts/ecs/GameEngine";
+import {GameState} from "../../state/GameState";
+import {inject} from "../../injects/inject";
+import {GameEngine} from "../GameEngine";
 
 export class BasketMovementSystem extends NovaECS.System {
     private readonly basketZoneName: string = "ZoneBasket";

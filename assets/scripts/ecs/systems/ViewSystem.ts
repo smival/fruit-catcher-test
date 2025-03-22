@@ -3,8 +3,8 @@ import {MovementComponent} from "../components/MovementComponent";
 import {ViewComponent} from "../components/ViewComponent";
 import {find, Prefab, Node} from "cc";
 import {AssetsLoader} from "../../utils/AssetsLoader";
-import {ItemsPool} from "db://assets/scripts/pool/ItemsPool";
-import {GameEngine} from "db://assets/scripts/ecs/GameEngine";
+import {ItemsPool} from "../../pool/ItemsPool";
+import {GameEngine} from "../GameEngine";
 
 export class ViewSystem extends NovaECS.System {
     protected family?: NovaECS.Family;
@@ -52,9 +52,6 @@ export class ViewSystem extends NovaECS.System {
         Array.from(this._processedEntities).forEach(entity => {
             if (!currentEntities.has(entity)) {
                 const viewComp = entity.getComponent<ViewComponent>(ViewComponent);
-                //if (viewComp?.node) {
-                 //   viewComp.node.destroy();
-                //}
                 this._processedEntities.delete(entity);
                 this._viewPoolMap.get(viewComp.prefabPath).release(viewComp.node);
                 viewComp.node.removeFromParent();
@@ -71,10 +68,10 @@ export class ViewSystem extends NovaECS.System {
         }
 
         const node: Node = this._viewPoolMap.get(viewComp.prefabPath).obtain();
-        const canvas: Node = find("Canvas");
+        const parent: Node = find("Canvas/ViewContainer");
 
-        if (canvas) {
-            canvas.addChild(node);
+        if (parent) {
+            parent.addChild(node);
             entity.getComponent(ViewComponent).node = node;
         }
 }

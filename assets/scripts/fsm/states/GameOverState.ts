@@ -1,10 +1,14 @@
-import {AbstractBaseState} from "db://assets/scripts/fsm/stateMatter/Abstract/AbstractBaseState";
-import {AppContext} from "db://assets/scripts/fsm/AppContext";
+import {AbstractBaseState} from "../stateMatter/Abstract/AbstractBaseState";
+import {AppContext} from "../AppContext";
+import {Button} from "cc";
 
-export class GameOverState  extends AbstractBaseState<AppContext>{
+export class GameOverState extends AbstractBaseState<AppContext>{
 	public Execute()
 	{
-		console.log("Game is OVer!");
-		//super.Execute();
+		this._context.starterNode.on(Button.EventType.CLICK, () =>
+		{
+			this._context.starterNode.off(Button.EventType.CLICK);
+			super.Execute();
+		});
 	}
 }

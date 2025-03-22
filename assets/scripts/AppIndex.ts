@@ -1,10 +1,10 @@
-import {_decorator, Component} from "cc"
-import {AppContext} from "db://assets/scripts/fsm/AppContext";
-import {AppStateMachine} from "db://assets/scripts/fsm/AppStateMachine";
-import {LoadingState} from "db://assets/scripts/fsm/states/LoadingState";
-import {IntroState} from "db://assets/scripts/fsm/states/IntroState";
-import {PlayGameState} from "db://assets/scripts/fsm/states/PlayGameState";
-import {GameOverState} from "db://assets/scripts/fsm/states/GameOverState";
+import {_decorator, Component, find} from "cc";
+import {AppStateMachine} from "./fsm/AppStateMachine";
+import {AppContext} from "./fsm/AppContext";
+import {LoadingState} from "./fsm/states/LoadingState";
+import {IntroState} from "./fsm/states/IntroState";
+import {PlayGameState} from "./fsm/states/PlayGameState";
+import {GameOverState} from "./fsm/states/GameOverState";
 
 const { ccclass, menu } = _decorator;
 
@@ -20,6 +20,8 @@ export class AppIndex extends Component
 		this._context = new AppContext(this._stateMachine);
 		this._stateMachine.Context = this._context;
 		this._context.starterNode = this.node;
+		this._context.gameUI = find("Canvas/TotalPoints");
+		this._context.toastUI = find("Canvas/ToastMessage");
 
 		const loadingState = new LoadingState(this._context);
 		const introState = new IntroState(this._context);

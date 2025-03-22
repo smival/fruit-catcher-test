@@ -5,7 +5,7 @@ import { MovementComponent } from "../ecs/components/MovementComponent";
 import { BasketComponent } from "../ecs/components/BasketComponent";
 import { GameStateComponent } from "../ecs/components/GameStateComponent";
 import { view, Node, UITransform } from "cc";
-import {ViewComponent} from "db://assets/scripts/ecs/components/ViewComponent";
+import {ViewComponent} from "../ecs/components/ViewComponent";
 
 export class EntitiesFactory {
     public static createFruitEntity(fruit: FruitItem, spawnZone: Node): NovaECS.Entity {

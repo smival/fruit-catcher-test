@@ -1,5 +1,5 @@
 import { IGameState, IGameStateReader, IGameStateWriter } from '../interfaces/IGameState';
-import {singleton} from "db://assets/scripts/injects/decorators/singleton";
+import {singleton} from "../injects/decorators/singleton";
 
 @singleton()
 export class GameState implements IGameStateReader, IGameStateWriter {

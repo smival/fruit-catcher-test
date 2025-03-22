@@ -4,7 +4,7 @@ import { FruitComponent } from "../components/FruitComponent";
 import { MovementComponent } from "../components/MovementComponent";
 import { EntitiesFactory } from "../../factories/EntitiesFactory";
 import { Node, find } from "cc";
-import {GameEngine} from "db://assets/scripts/ecs/GameEngine";
+import {GameEngine} from "../GameEngine";
 
 export class SpawnKillSystem extends NovaECS.System {
     private readonly spawnZoneName: string = "ZoneSpawn";

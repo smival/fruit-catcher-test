@@ -5,6 +5,10 @@
   /* Add your custom configuration here. */
   "compilerOptions": {
     "strict": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "cc": ["@cocos/creator-types/engine/cc.d.ts"],
+      "cc.editor": ["@cocos/creator-types/engine/cc.editor.d.ts"],
+    }
   }
 }

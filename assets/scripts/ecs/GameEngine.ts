@@ -1,12 +1,12 @@
 import NovaECS from "@nova-engine/ecs";
-import { Utils } from "db://assets/scripts/utils/Utils";
-import { EntitiesFactory } from "db://assets/scripts/factories/EntitiesFactory";
-import {GameState} from "db://assets/scripts/state/GameState";
-import {inject} from "db://assets/scripts/injects/inject";
-import {GameConfig} from "db://assets/scripts/types/GameConfig";
-import {SpawnKillSystem} from "db://assets/scripts/ecs/systems/SpawnKillSystem";
-import {ViewSystem} from "db://assets/scripts/ecs/systems/ViewSystem";
-import {BasketMovementSystem} from "db://assets/scripts/ecs/systems/BasketMovementSystem";
+import {inject} from "../injects/inject";
+import {GameState} from "../state/GameState";
+import {GameConfig} from "../types/GameConfig";
+import {SpawnKillSystem} from "./systems/SpawnKillSystem";
+import {ViewSystem} from "./systems/ViewSystem";
+import {BasketMovementSystem} from "./systems/BasketMovementSystem";
+import {EntitiesFactory} from "../factories/EntitiesFactory";
+import {Utils} from "../utils/Utils";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);

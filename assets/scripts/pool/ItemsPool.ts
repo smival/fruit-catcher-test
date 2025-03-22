@@ -1,5 +1,5 @@
 import {instantiate, Node, Prefab} from "cc";
-import {AbstractPool} from "db://assets/scripts/pool/AbstractPool";
+import {AbstractPool} from "./AbstractPool";
 
 export class ItemsPool extends AbstractPool<Node> {
 	constructor(protected prefab: Prefab)
