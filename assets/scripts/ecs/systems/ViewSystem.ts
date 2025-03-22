@@ -1,10 +1,10 @@
 import NovaECS from "@nova-engine/ecs";
-import {GameEngine} from "../../GameEngine";
 import {MovementComponent} from "../components/MovementComponent";
 import {ViewComponent} from "../components/ViewComponent";
 import {find, Prefab, Node} from "cc";
 import {AssetsLoader} from "../../utils/AssetsLoader";
 import {ItemsPool} from "db://assets/scripts/pool/ItemsPool";
+import {GameEngine} from "db://assets/scripts/ecs/GameEngine";
 
 export class ViewSystem extends NovaECS.System {
     protected family?: NovaECS.Family;
