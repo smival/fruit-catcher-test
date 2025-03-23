@@ -1,10 +1,12 @@
 import NovaECS from "@nova-engine/ecs";
 import {MovementComponent} from "../components/MovementComponent";
 import {ViewComponent} from "../components/ViewComponent";
-import {find, Prefab, Node} from "cc";
+import {find, Prefab, Node, UITransform} from "cc";
 import {AssetsLoader} from "../../utils/AssetsLoader";
 import {ItemsPool} from "../../pool/ItemsPool";
 import {GameEngine} from "../GameEngine";
+import {HitComponent} from "../components/HitComponent";
+import {CocosHitComponent} from "../../cocosComponents/CocosHitComponent";
 
 export class ViewSystem extends NovaECS.System {
     protected family?: NovaECS.Family;
@@ -73,6 +75,14 @@ export class ViewSystem extends NovaECS.System {
         if (parent) {
             parent.addChild(node);
             entity.getComponent(ViewComponent).node = node;
+            // ant view can bit hit (optional)
+            if (entity.hasComponent(HitComponent)
+                && node.getComponent(CocosHitComponent))
+            {
+                entity.getComponent(HitComponent).hitTransform =
+                    node.getComponent(CocosHitComponent)
+                        .hitNode?.getComponent(UITransform)
+            }
         }
 }
 }
