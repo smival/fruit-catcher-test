@@ -9,6 +9,7 @@ import {EntitiesFactory} from "../factories/EntitiesFactory";
 import {Utils} from "../utils/Utils";
 import {CollisionSystem} from "./systems/CollisionSystem";
 import {ScoresSystem} from "./systems/ScoresSystem";
+import {ItemsPool} from "../pool/ItemsPool";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
@@ -18,6 +19,7 @@ export class GameEngine extends NovaECS.Engine {
 
     private _systemsList: NovaECS.System[] = [];
     private _config: GameConfig | null = null;
+    private _viewPoolMap: Map<string, ItemsPool> = new Map<string, ItemsPool>(); // prefab path / pool
 
     constructor() {
         super();
@@ -41,13 +43,12 @@ export class GameEngine extends NovaECS.Engine {
         this._gameState.startTime(config.time);
     }
 
-    /*public clean(): void {
-        this.entities.forEach(entity => this.removeEntity(entity));
-        this.update(0);
-
+    public clean(): void
+    {
         this._systemsList.forEach(system => this.removeSystem(system));
-        this._systemsList = [];
-    }*/
+        this.entities.forEach(entity => this.removeEntity(entity));
+        this._gameState.clean();
+    }
 
     update(dt: number): boolean {
         const maxFPS = 60;
@@ -75,15 +76,13 @@ export class GameEngine extends NovaECS.Engine {
     private _initSystems(): void {
         this._systemsList = [
             new SpawnKillSystem(),
+            new ViewSystem(this._viewPoolMap),
             new CollisionSystem(),
             new ScoresSystem(),
-            new ViewSystem(),
             new BasketMovementSystem()
         ];
 
         this.addEntity(EntitiesFactory.createBasketEntity());
-
-        // Добавляем системы в движок
         this._systemsList.forEach(system => this.addSystem(system));
     }
 }

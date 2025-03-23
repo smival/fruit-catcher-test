@@ -5,18 +5,17 @@ import {find, Node} from "cc";
 import {GameState} from "../../state/GameState";
 import {inject} from "../../injects/inject";
 import {GameEngine} from "../GameEngine";
+import {NodeNames} from "../../NodeNames";
 
 export class BasketMovementSystem extends NovaECS.System {
-    private readonly basketZoneName: string = "ZoneBasket";
     private basketZone: Node;
-
     private _gameState: GameState = inject(GameState);
     protected family?: NovaECS.Family;
 
     public onAttach(engine: GameEngine): void {
         super.onAttach(engine);
 
-        this.basketZone = find(`Canvas/${this.basketZoneName}`);
+        this.basketZone = find(NodeNames.ZoneBasket);
 
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(BasketComponent)
@@ -25,7 +24,6 @@ export class BasketMovementSystem extends NovaECS.System {
     }
 
     public update(engine: GameEngine, delta: number): void {
-
         this.family.entities.forEach(entity => {
             const movementComp = entity.getComponent(MovementComponent);
             movementComp.currentX = this._gameState.getState().basketPositionX;

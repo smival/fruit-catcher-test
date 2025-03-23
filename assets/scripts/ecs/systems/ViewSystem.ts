@@ -1,4 +1,4 @@
-import NovaECS from "@nova-engine/ecs";
+import NovaECS, {Engine, Entity} from "@nova-engine/ecs";
 import {MovementComponent} from "../components/MovementComponent";
 import {ViewComponent} from "../components/ViewComponent";
 import {find, Prefab, Node, UITransform} from "cc";
@@ -7,12 +7,19 @@ import {ItemsPool} from "../../pool/ItemsPool";
 import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {CocosHitComponent} from "../../cocosComponents/CocosHitComponent";
+import {NodeNames} from "../../NodeNames";
 
 export class ViewSystem extends NovaECS.System {
     protected family?: NovaECS.Family;
     private _processedEntities: Set<NovaECS.Entity> = new Set();
     private _nodesFamily?: NovaECS.Family;
-    private _viewPoolMap: Map<string, ItemsPool> = new Map<string, ItemsPool>(); // prefab path / pool
+    private _viewPoolMap: Map<string, ItemsPool>;
+
+    constructor(viewPoolMap: Map<string, ItemsPool>)
+    {
+        super();
+        this._viewPoolMap = viewPoolMap;
+    }
 
     onAttach(engine: GameEngine): void {
         super.onAttach(engine);
@@ -53,13 +60,18 @@ export class ViewSystem extends NovaECS.System {
         const currentEntities = new Set(this.family.entities);
         Array.from(this._processedEntities).forEach(entity => {
             if (!currentEntities.has(entity)) {
-                const viewComp = entity.getComponent<ViewComponent>(ViewComponent);
-                this._processedEntities.delete(entity);
-                this._viewPoolMap.get(viewComp.prefabPath).release(viewComp.node);
-                viewComp.node.removeFromParent();
-                viewComp.node = null;
+                this.killEntity(entity);
             }
         });
+    }
+
+    private killEntity(entity:Entity): void
+    {
+        const viewComp = entity.getComponent<ViewComponent>(ViewComponent);
+        this._processedEntities.delete(entity);
+        this._viewPoolMap.get(viewComp.prefabPath).release(viewComp.node);
+        viewComp.node.removeFromParent();
+        viewComp.node = null;
     }
 
     private async createNodeForEntity(entity: NovaECS.Entity, viewComp: ViewComponent): Promise<void> {
@@ -70,7 +82,7 @@ export class ViewSystem extends NovaECS.System {
         }
 
         const node: Node = this._viewPoolMap.get(viewComp.prefabPath).obtain();
-        const parent: Node = find("Canvas/ViewContainer");
+        const parent: Node = find(NodeNames.ViewContainer);
 
         if (parent) {
             parent.addChild(node);
@@ -84,5 +96,13 @@ export class ViewSystem extends NovaECS.System {
                         .hitNode?.getComponent(UITransform)
             }
         }
-}
+    }
+
+    public onDetach(engine: Engine)
+    {
+        this.family.entities.forEach(entity => {
+            this.killEntity(entity);
+        });
+        super.onDetach(engine);
+    }
 }

@@ -10,7 +10,7 @@ export class GameOverState extends AbstractBaseState<AppContext>{
 		this._context.starterNode.on(Button.EventType.CLICK, () =>
 		{
 			this._context.starterNode.off(Button.EventType.CLICK);
-			//GameEngine.instance.clean();
+			GameEngine.instance.clean();
 			super.Execute();
 		});
 	}

@@ -5,6 +5,7 @@ import {LoadingState} from "./fsm/states/LoadingState";
 import {IntroState} from "./fsm/states/IntroState";
 import {PlayGameState} from "./fsm/states/PlayGameState";
 import {GameOverState} from "./fsm/states/GameOverState";
+import {NodeNames} from "./NodeNames";
 
 const { ccclass, menu } = _decorator;
 
@@ -20,8 +21,8 @@ export class AppIndex extends Component
 		this._context = new AppContext(this._stateMachine);
 		this._stateMachine.Context = this._context;
 		this._context.starterNode = this.node;
-		this._context.gameUI = find("Canvas/TotalPoints");
-		this._context.toastNode = find("Canvas/ToastMessage");
+		this._context.gameUI = find(NodeNames.TotalPoints);
+		this._context.toastNode = find(NodeNames.ToastMessage);
 		this._context.toastLabel = this._context.toastNode.getChildByName("Value").getComponent(Label);
 
 		const loadingState = new LoadingState(this._context);
