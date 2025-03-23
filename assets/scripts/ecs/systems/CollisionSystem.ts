@@ -31,12 +31,13 @@ export class CollisionSystem extends NovaECS.System {
 
             for (let j = 0; j < this.familyFruits.entities.length; j++) {
                 const entity2 = this.familyFruits.entities[j];
-                const box2 = entity2.getComponent(HitComponent).hitTransform?.getBoundingBoxToWorld();
+                const hitComp = entity2.getComponent(HitComponent);
+                const box2 = hitComp.hitTransform?.getBoundingBoxToWorld();
 
                 if (!box2) continue;
 
                 if (box1.intersects(box2)) {
-                    console.log("intersects");
+                    hitComp.hitOccurred = true;
                 }
             }
         }

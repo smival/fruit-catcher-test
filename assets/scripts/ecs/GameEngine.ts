@@ -8,6 +8,7 @@ import {BasketMovementSystem} from "./systems/BasketMovementSystem";
 import {EntitiesFactory} from "../factories/EntitiesFactory";
 import {Utils} from "../utils/Utils";
 import {CollisionSystem} from "./systems/CollisionSystem";
+import {ScoresSystem} from "./systems/ScoresSystem";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
@@ -75,6 +76,7 @@ export class GameEngine extends NovaECS.Engine {
         this._systemsList = [
             new SpawnKillSystem(),
             new CollisionSystem(),
+            new ScoresSystem(),
             new ViewSystem(),
             new BasketMovementSystem()
         ];

@@ -5,6 +5,7 @@ import { MovementComponent } from "../components/MovementComponent";
 import { EntitiesFactory } from "../../factories/EntitiesFactory";
 import { Node, find } from "cc";
 import {GameEngine} from "../GameEngine";
+import {HitComponent} from "../components/HitComponent";
 
 export class SpawnKillSystem extends NovaECS.System {
     private readonly spawnZoneName: string = "ZoneSpawn";
@@ -28,6 +29,7 @@ export class SpawnKillSystem extends NovaECS.System {
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(FruitComponent)
             .include(MovementComponent)
+            .include(HitComponent)
             .build();
     }
 
@@ -38,16 +40,22 @@ export class SpawnKillSystem extends NovaECS.System {
             this._nextSpawnTime = this._spawnInterval;
         }
 
-        this.family?.entities.forEach(entity => {
-            const movement = entity.getComponent<MovementComponent>(MovementComponent);
-            if (movement) {
-                movement.currentY += movement.velocityY * delta;
+        for (let i = 0; i < this.family.entities.length; i++) {
+            const entity = this.family.entities[i];
+            const movementComp = entity.getComponent(MovementComponent);
+            if (movementComp) {
+                movementComp.currentY += movementComp.velocityY * delta;
 
-                if (movement.currentY < 0) {
+                if (movementComp.currentY < 0) {
                     engine.removeEntity(entity);
                 }
             }
-        });
+            const hitComp = entity.getComponent(HitComponent);
+            if (hitComp.hitOccurred) {
+                engine.removeEntity(entity);
+            }
+        }
+
     }
 
     private _spawnFruit(): void {

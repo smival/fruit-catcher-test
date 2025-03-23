@@ -4,5 +4,6 @@ import { UITransform } from "cc";
 export class HitComponent implements NovaECS.Component {
     constructor(
         public hitTransform: UITransform | null = null,
+        public hitOccurred: boolean = false
     ) {}
 }

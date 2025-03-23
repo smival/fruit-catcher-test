@@ -17,7 +17,6 @@ export class EntitiesFactory {
             fruitComponent.category = fruit.category;
             fruitComponent.type = fruit.type;
             fruitComponent.points = fruit.points;
-            fruitComponent.speed = fruit.speed;
         }
 
         const spawnTransform = spawnZone.getComponent(UITransform);
