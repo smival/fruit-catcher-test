@@ -6,10 +6,23 @@ import {GameConfig} from "../../types/GameConfig";
 export class LoadingState extends AbstractBaseState<AppContext>{
 	public Execute()
 	{
-		this._context.toastUI.active = true;
-		AssetsLoader.loadJSON<GameConfig>("config").then((conf: GameConfig) => {
-			this._context.config = conf;
+		this._context.toastNode.active = true;
+
+		this.load().then(() => {
 			super.Execute();
 		});
+	}
+
+	protected async load(): Promise<void>
+	{
+		const i18n = await AssetsLoader.loadJSON<Object>("i18n/en"); // sys.languageCode || DEFAULT_LOCALE;
+		this._context.locale = new Map<string, string>();
+		Object.keys(i18n).forEach((key: string) => {
+			this._context.locale.set(key, i18n[key]);
+		});
+
+		this._context.toastLabel.string = this._context.locale.get("loading");
+
+		this._context.config = await AssetsLoader.loadJSON<GameConfig>("config");
 	}
 }

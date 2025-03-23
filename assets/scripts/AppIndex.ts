@@ -1,4 +1,4 @@
-import {_decorator, Component, find} from "cc";
+import {_decorator, Component, find, Label} from "cc";
 import {AppStateMachine} from "./fsm/AppStateMachine";
 import {AppContext} from "./fsm/AppContext";
 import {LoadingState} from "./fsm/states/LoadingState";
@@ -21,7 +21,8 @@ export class AppIndex extends Component
 		this._stateMachine.Context = this._context;
 		this._context.starterNode = this.node;
 		this._context.gameUI = find("Canvas/TotalPoints");
-		this._context.toastUI = find("Canvas/ToastMessage");
+		this._context.toastNode = find("Canvas/ToastMessage");
+		this._context.toastLabel = this._context.toastNode.getChildByName("Value").getComponent(Label);
 
 		const loadingState = new LoadingState(this._context);
 		const introState = new IntroState(this._context);

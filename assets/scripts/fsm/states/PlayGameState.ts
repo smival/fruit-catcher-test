@@ -16,7 +16,7 @@ export class PlayGameState extends AbstractBaseState<AppContext>{
 			{
 				this._context.onUpdate = null;
 				this._context.gameUI.active = false;
-				this._context.toastUI.active = true;
+				this._context.toastNode.active = true;
 				super.Execute();
 			}
 		}

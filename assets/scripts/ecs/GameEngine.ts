@@ -39,6 +39,14 @@ export class GameEngine extends NovaECS.Engine {
         this._gameState.startTime(config.time);
     }
 
+    /*public clean(): void {
+        this.entities.forEach(entity => this.removeEntity(entity));
+        this.update(0);
+
+        this._systemsList.forEach(system => this.removeSystem(system));
+        this._systemsList = [];
+    }*/
+
     update(dt: number): boolean {
         const maxFPS = 60;
         const minFPS = 30;
