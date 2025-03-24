@@ -6,6 +6,7 @@ import {GameState} from "../../state/GameState";
 import {inject} from "../../injects/inject";
 import {GameEngine} from "../GameEngine";
 import {NodeNames} from "../../NodeNames";
+import {EntitiesFactory} from "../../factories/EntitiesFactory";
 
 export class BasketMovementSystem extends NovaECS.System {
     private basketZone: Node;
@@ -16,6 +17,7 @@ export class BasketMovementSystem extends NovaECS.System {
         super.onAttach(engine);
 
         this.basketZone = find(NodeNames.ZoneBasket);
+        engine.addEntity(EntitiesFactory.createBasketEntity());
 
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(BasketComponent)

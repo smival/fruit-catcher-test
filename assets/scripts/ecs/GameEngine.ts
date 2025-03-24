@@ -5,7 +5,6 @@ import {GameConfig} from "../types/GameConfig";
 import {SpawnKillSystem} from "./systems/SpawnKillSystem";
 import {ViewSystem} from "./systems/ViewSystem";
 import {BasketMovementSystem} from "./systems/BasketMovementSystem";
-import {EntitiesFactory} from "../factories/EntitiesFactory";
 import {Utils} from "../utils/Utils";
 import {CollisionSystem} from "./systems/CollisionSystem";
 import {ScoresSystem} from "./systems/ScoresSystem";
@@ -13,7 +12,7 @@ import {ItemsPool} from "../pool/ItemsPool";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
-    private readonly _gameSpeed: number = 1;
+    private readonly _gameSpeed: number = 0.2;
     private _time = 0;
     private static _instance: GameEngine;
 
@@ -82,7 +81,6 @@ export class GameEngine extends NovaECS.Engine {
             new BasketMovementSystem()
         ];
 
-        this.addEntity(EntitiesFactory.createBasketEntity());
         this._systemsList.forEach(system => this.addSystem(system));
     }
 }
