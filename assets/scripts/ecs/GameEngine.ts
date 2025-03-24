@@ -9,10 +9,11 @@ import {Utils} from "../utils/Utils";
 import {CollisionSystem} from "./systems/CollisionSystem";
 import {ScoresSystem} from "./systems/ScoresSystem";
 import {ItemsPool} from "../pool/ItemsPool";
+import {MovementsSystem} from "./systems/MovementsSystem";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
-    private readonly _gameSpeed: number = 0.2;
+    private readonly _gameSpeed: number = 1;
     private _time = 0;
     private static _instance: GameEngine;
 
@@ -75,6 +76,7 @@ export class GameEngine extends NovaECS.Engine {
     private _initSystems(): void {
         this._systemsList = [
             new SpawnKillSystem(),
+            new MovementsSystem(),
             new ViewSystem(this._viewPoolMap),
             new CollisionSystem(),
             new ScoresSystem(),

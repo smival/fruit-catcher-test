@@ -1,5 +1,4 @@
 import NovaECS, {Engine, EngineEntityListener, Entity} from "@nova-engine/ecs";
-import {MovementComponent} from "../components/MovementComponent";
 import {ViewComponent} from "../components/ViewComponent";
 import {find, Prefab, Node, UITransform} from "cc";
 import {AssetsLoader} from "../../utils/AssetsLoader";
@@ -8,6 +7,7 @@ import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {CocosHitComponent} from "../../cocosComponents/CocosHitComponent";
 import {NodeNames} from "../../NodeNames";
+import {PositionComponent} from "../components/PositionComponent";
 
 export class ViewSystem extends NovaECS.System implements EngineEntityListener {
     protected family?: NovaECS.Family;
@@ -28,7 +28,6 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
 
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(ViewComponent)
-            .include(MovementComponent)
             .build();
     }
 
@@ -45,10 +44,10 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
         this._toRemove = [];
 
         this.family.entities.forEach(entity => {
-            const movementComp = entity.getComponent(MovementComponent);
+            const posComp = entity.getComponent(PositionComponent);
             const viewComponent = entity.getComponent(ViewComponent);
-            if (movementComp && viewComponent?.node) {
-                viewComponent.node.setWorldPosition(movementComp.currentX, movementComp.currentY, 0);
+            if (posComp && viewComponent?.node) {
+                viewComponent.node.setWorldPosition(posComp.currentX, posComp.currentY, 0);
             }
         });
     }
