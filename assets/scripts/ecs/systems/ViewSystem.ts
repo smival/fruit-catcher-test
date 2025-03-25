@@ -43,7 +43,8 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
         });
         this._toRemove = [];
 
-        this.family.entities.forEach(entity => {
+        for (let i = 0; i < this.family.entities.length; i++) {
+            const entity = this.family.entities[i];
             const posComp = entity.getComponent(PositionComponent);
             const viewComponent = entity.getComponent(ViewComponent);
             if (posComp && viewComponent?.node) {
@@ -55,9 +56,11 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
     private killEntity(entity:Entity): void
     {
         const viewComp = entity.getComponent<ViewComponent>(ViewComponent);
-        this._viewPoolMap.get(viewComp.prefabPath).release(viewComp.node);
-        viewComp.node.removeFromParent();
-        viewComp.node = null;
+        if (viewComp.node) {
+            this._viewPoolMap.get(viewComp.prefabPath).release(viewComp.node);
+            viewComp.node.removeFromParent();
+            viewComp.node = null;
+        }
     }
 
     private async createNodeForEntity(entity: NovaECS.Entity, viewComp: ViewComponent): Promise<void> {

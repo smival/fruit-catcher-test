@@ -1,16 +1,14 @@
 import NovaECS from "@nova-engine/ecs";
 import {FruitItem} from "../../types/GameConfig";
-import { FruitComponent } from "../components/FruitComponent";
-import { EntitiesFactory } from "../../factories/EntitiesFactory";
-import { Node, find } from "cc";
+import {FruitComponent} from "../components/FruitComponent";
+import {EntitiesFactory} from "../../factories/EntitiesFactory";
+import {find, Node} from "cc";
 import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {NodeNames} from "../../NodeNames";
-import {PositionComponent} from "../components/PositionComponent";
 
-export class SpawnKillSystem extends NovaECS.System {
+export class SpawnSystem extends NovaECS.System {
     private spawnZone: Node;
-    private killZone: Node;
 
     protected family?: NovaECS.Family;
     private _spawnItems: FruitItem[] = [];
@@ -25,8 +23,6 @@ export class SpawnKillSystem extends NovaECS.System {
         this._spawnInterval = engine.config.rate;
 
         this.spawnZone = find(NodeNames.ZoneSpawn);
-        this.killZone = find(NodeNames.ZoneKill);
-
         this._engine = engine;
         this.family = new NovaECS.FamilyBuilder(engine)
             .include(FruitComponent)
@@ -39,21 +35,6 @@ export class SpawnKillSystem extends NovaECS.System {
         if (this._nextSpawnTime <= 0) {
             this._spawnFruit();
             this._nextSpawnTime = this._spawnInterval;
-        }
-
-        const killZoneY: number = this.killZone.getWorldPosition().y;
-        for (let i = 0; i < this.family.entities.length; i++) {
-            const entity = this.family.entities[i];
-            const posComp = entity.getComponent(PositionComponent);
-            if (posComp) {
-                if (posComp.currentY < killZoneY) {
-                    engine.removeEntity(entity);
-                }
-            }
-            const hitComp = entity.getComponent(HitComponent);
-            if (hitComp.hitOccurred) {
-                engine.removeEntity(entity);
-            }
         }
     }
 

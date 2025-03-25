@@ -25,7 +25,8 @@ export class BasketMovementSystem extends NovaECS.System {
     }
 
     public update(engine: GameEngine, delta: number): void {
-        this.family.entities.forEach(entity => {
+        for (let i = 0; i < this.family.entities.length; i++) {
+            const entity = this.family.entities[i];
             const posComp = entity.getComponent(PositionComponent);
             posComp.currentX = this._gameState.getState().basketPositionX;
             posComp.currentY = this.basketZone.getWorldPosition().y;

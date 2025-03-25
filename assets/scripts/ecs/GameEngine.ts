@@ -2,7 +2,7 @@ import NovaECS from "@nova-engine/ecs";
 import {inject} from "../injects/inject";
 import {GameState} from "../state/GameState";
 import {GameConfig} from "../types/GameConfig";
-import {SpawnKillSystem} from "./systems/SpawnKillSystem";
+import {SpawnSystem} from "./systems/SpawnSystem";
 import {ViewSystem} from "./systems/ViewSystem";
 import {BasketMovementSystem} from "./systems/BasketMovementSystem";
 import {Utils} from "../utils/Utils";
@@ -10,6 +10,7 @@ import {CollisionSystem} from "./systems/CollisionSystem";
 import {ScoresSystem} from "./systems/ScoresSystem";
 import {ItemsPool} from "../pool/ItemsPool";
 import {MovementsSystem} from "./systems/MovementsSystem";
+import {KillSystem} from "./systems/KillSystem";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
@@ -75,10 +76,11 @@ export class GameEngine extends NovaECS.Engine {
 
     private _initSystems(): void {
         this._systemsList = [
-            new SpawnKillSystem(),
+            new SpawnSystem(),
             new MovementsSystem(),
             new ViewSystem(this._viewPoolMap),
             new CollisionSystem(),
+            new KillSystem(),
             new ScoresSystem(),
             new BasketMovementSystem()
         ];
