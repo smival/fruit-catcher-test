@@ -3,7 +3,7 @@ import {inject} from "../injects/inject";
 import {GameState} from "../state/GameState";
 import {GameConfig} from "../types/GameConfig";
 import {SpawnFruitSystem} from "./systems/SpawnFruitSystem";
-import {LoadUnloadViewSystem} from "./systems/LoadUnloadViewSystem";
+import {ViewManagementSystem} from "./systems/ViewManagementSystem";
 import {BasketMovementSystem} from "./systems/BasketMovementSystem";
 import {Utils} from "../utils/Utils";
 import {BasketVSFruitCollisionSystem} from "./systems/BasketVSFruitCollisionSystem";
@@ -79,7 +79,7 @@ export class GameEngine extends NovaECS.Engine {
         this._systemsList = [
             new SpawnFruitSystem(),
             new MovementsSystem(),
-            new LoadUnloadViewSystem(this._viewPoolMap),
+            new ViewManagementSystem(this._viewPoolMap),
             new BasketVSFruitCollisionSystem(),
             new ScoresSystem(),
             new BasketMovementSystem(),

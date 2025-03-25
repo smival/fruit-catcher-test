@@ -9,7 +9,7 @@ import {CocosHitComponent} from "../../cocosComponents/CocosHitComponent";
 import {NodeNames} from "../../NodeNames";
 import {PositionComponent} from "../components/PositionComponent";
 
-export class LoadUnloadViewSystem extends NovaECS.System implements EngineEntityListener {
+export class ViewManagementSystem extends NovaECS.System implements EngineEntityListener {
     protected family?: NovaECS.Family;
     private _viewPoolMap: Map<string, ItemsPool>;
     private _toAdd: Entity[] = [];
