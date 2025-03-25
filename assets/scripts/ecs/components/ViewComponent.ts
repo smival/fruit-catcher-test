@@ -5,6 +5,7 @@ import {IKillableProps} from "./IKillable";
 import {ECocosNodeEvents} from "../../cocosComponents/ECocosNodeEvents";
 
 export class ViewComponent<T = any> implements NovaECS.Component, IKillableProps {
+    tag: string = "ViewComponent";
     constructor(
         private _node: Node | null = null,
         public prefabPath: string = "",
