@@ -50,7 +50,7 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
             if (posComp && viewComponent?.node) {
                 viewComponent.node.setWorldPosition(posComp.currentX, posComp.currentY, 0);
             }
-        });
+        };
     }
 
     private killEntity(entity:Entity): void

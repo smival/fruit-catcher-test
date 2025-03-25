@@ -30,6 +30,6 @@ export class BasketMovementSystem extends NovaECS.System {
             const posComp = entity.getComponent(PositionComponent);
             posComp.currentX = this._gameState.getState().basketPositionX;
             posComp.currentY = this.basketZone.getWorldPosition().y;
-        });
+        };
     }
 }
