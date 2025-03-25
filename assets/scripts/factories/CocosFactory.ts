@@ -10,8 +10,10 @@ export interface FloatingLabelData
 
 export type CocosFactoryFunc = (node: Node, data: any) => void;
 
-export class CocosFactory {
-	public static buildFloatingLabel(node: Node, data: FloatingLabelData) {
+export class CocosFactory
+{
+	public static buildFloatingLabel(node: Node, data: FloatingLabelData)
+	{
 		const comp = node.getComponent(CocosFloatingLabel);
 		const formatFunc: (v: number) => string = formatHandlers[data.formatter];
 		comp.label.string = formatFunc(data.score);

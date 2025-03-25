@@ -1,4 +1,4 @@
 export interface ITerminable
 {
-    Terminate(): void
+	Terminate(): void
 }

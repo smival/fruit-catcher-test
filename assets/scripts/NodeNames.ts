@@ -1,4 +1,5 @@
-export enum NodeNames {
+export enum NodeNames
+{
 	Canvas = "Canvas",
 	Camera = "Canvas/Camera",
 	ZoneBasket = "Canvas/ZoneBasket",

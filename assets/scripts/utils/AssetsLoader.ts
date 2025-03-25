@@ -1,11 +1,15 @@
-import { resources, JsonAsset, Prefab } from 'cc';
+import {JsonAsset, Prefab, resources} from 'cc';
 
-export class AssetsLoader {
-	public static loadJSON<T>(path: string):Promise<T>
+export class AssetsLoader
+{
+	public static loadJSON<T>(path: string): Promise<T>
 	{
-		return new Promise((resolve, reject) => {
-			resources.load(path, JsonAsset, (err, jsonAsset) => {
-				if (err) {
+		return new Promise((resolve, reject) =>
+		{
+			resources.load(path, JsonAsset, (err, jsonAsset) =>
+			{
+				if (err)
+				{
 					reject(err);
 					console.error(err.message);
 					return;
@@ -15,11 +19,14 @@ export class AssetsLoader {
 		});
 	}
 
-	public static loadPrefab(path: string):Promise<Prefab>
+	public static loadPrefab(path: string): Promise<Prefab>
 	{
-		return new Promise((resolve, reject) => {
-			resources.load(path, Prefab, (err, prefab) => {
-				if (err) {
+		return new Promise((resolve, reject) =>
+		{
+			resources.load(path, Prefab, (err, prefab) =>
+			{
+				if (err)
+				{
 					reject(err);
 					console.error(err.message);
 					return;

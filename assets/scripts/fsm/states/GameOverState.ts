@@ -3,7 +3,8 @@ import {AppContext} from "../AppContext";
 import {Button} from "cc";
 import {GameEngine} from "../../ecs/GameEngine";
 
-export class GameOverState extends AbstractBaseState<AppContext>{
+export class GameOverState extends AbstractBaseState<AppContext>
+{
 	public Execute()
 	{
 		this._context.toastLabel.string = this._context.locale.get("game_over");

@@ -1,6 +1,7 @@
 import {EItemsCategory} from "./EItemsCategory";
 
-export interface GameConfig {
+export interface GameConfig
+{
 	time: number;
 	rate: number;
 	items: FruitItem[];

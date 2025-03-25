@@ -1,4 +1,4 @@
-import { director, sp, Node, Animation } from 'cc';
+import {Animation, director, Node, sp} from 'cc';
 
 export type AnimationPromise = Promise<sp.spine.Animation | void>;
 

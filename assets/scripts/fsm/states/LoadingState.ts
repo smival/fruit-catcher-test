@@ -2,16 +2,17 @@ import {AbstractBaseState} from "../stateMatter/Abstract/AbstractBaseState";
 import {AppContext} from "../AppContext";
 import {AssetsLoader} from "../../utils/AssetsLoader";
 import {GameConfig} from "../../types/GameConfig";
-import {sys} from "cc"
 
-export class LoadingState extends AbstractBaseState<AppContext>{
-	private readonly DEFAULT_LOCALE:string = "ru"; //sys.languageCode;
+export class LoadingState extends AbstractBaseState<AppContext>
+{
+	private readonly DEFAULT_LOCALE: string = "ru"; //sys.languageCode;
 
 	public Execute()
 	{
 		this._context.toastNode.active = true;
 
-		this.load().then(() => {
+		this.load().then(() =>
+		{
 			super.Execute();
 		});
 	}
@@ -20,7 +21,8 @@ export class LoadingState extends AbstractBaseState<AppContext>{
 	{
 		const i18n = await AssetsLoader.loadJSON<Object>(`i18n/${this.DEFAULT_LOCALE}`);
 		this._context.locale = new Map<string, string>();
-		Object.keys(i18n).forEach((key: string) => {
+		Object.keys(i18n).forEach((key: string) =>
+		{
 			this._context.locale.set(key, i18n[key]);
 		});
 

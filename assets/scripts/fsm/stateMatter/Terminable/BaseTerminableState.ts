@@ -3,15 +3,15 @@ import {TerminableContext} from "./TerminableContext";
 
 export class BaseTerminableState<TContext extends TerminableContext<any, any>> extends AbstractBaseState<TContext>
 {
-    BeforeEnter(): void
-    {
-    }
+	BeforeEnter(): void
+	{
+	}
 
-    public BeforeExit()
-    {
-    }
+	public BeforeExit()
+	{
+	}
 
-    Terminate(): void
-    {
-    }
+	Terminate(): void
+	{
+	}
 }

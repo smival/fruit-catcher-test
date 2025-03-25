@@ -1,4 +1,4 @@
-import { IBaseStateMachine } from "./IBaseStateMachine";
+import {IBaseStateMachine} from "./IBaseStateMachine";
 
 /**
  * An interface that defines a state machine context
@@ -6,12 +6,13 @@ import { IBaseStateMachine } from "./IBaseStateMachine";
  */
 export interface IStateMachineContext<TContext, TEvent>
 {
-  /**
-   * A state machine reference
-   */
-  get StateMachine(): IBaseStateMachine<TContext, TEvent>;
-  /**
-   * Reset the context
-   */
-  Reset(): void;
+	/**
+	 * A state machine reference
+	 */
+	get StateMachine(): IBaseStateMachine<TContext, TEvent>;
+
+	/**
+	 * Reset the context
+	 */
+	Reset(): void;
 }

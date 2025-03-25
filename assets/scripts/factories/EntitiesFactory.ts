@@ -11,13 +11,15 @@ import {PositionComponent} from "../ecs/components/PositionComponent";
 import {CocosFactory, FloatingLabelData} from "./CocosFactory";
 import {FormatType} from "../utils/FormatUtils";
 
-export enum EEntityIDs {
+export enum EEntityIDs
+{
     FloatingLabel = "FloatingLabel",
     Fruit = "Fruit",
     Basket = "Basket"
 }
 
-export class EntitiesFactory {
+export class EntitiesFactory
+{
     public static createFloatingLabelEntity(worldPosition: Vec3, score: number): NovaECS.Entity
     {
         const entity = new NovaECS.Entity();
@@ -32,13 +34,15 @@ export class EntitiesFactory {
         return entity;
     }
 
-    public static createFruitEntity(fruit: FruitItem, spawnZone: Node): NovaECS.Entity {
+    public static createFruitEntity(fruit: FruitItem, spawnZone: Node): NovaECS.Entity
+    {
         const entity = new NovaECS.Entity();
         entity.id = EEntityIDs.Fruit;
 
         entity.putComponent(FruitComponent);
         const fruitComponent = entity.getComponent<FruitComponent>(FruitComponent);
-        if (fruitComponent) {
+        if (fruitComponent)
+        {
             fruitComponent.category = fruit.category;
             fruitComponent.type = fruit.type;
             fruitComponent.points = fruit.points;
@@ -47,7 +51,7 @@ export class EntitiesFactory {
         const spawnTransform = spawnZone.getComponent(UITransform);
         const spawnWidth = spawnTransform ? spawnTransform.width : view.getVisibleSize().width;
         const spawnPos = spawnZone.getWorldPosition();
-        const randomX = spawnPos.x - spawnWidth/2 + Math.random() * spawnWidth;
+        const randomX = spawnPos.x - spawnWidth / 2 + Math.random() * spawnWidth;
         const startY = spawnPos.y;
 
         entity.putComponent(PositionComponent).currentX = randomX;
@@ -59,7 +63,8 @@ export class EntitiesFactory {
         return entity;
     }
 
-    public static createBasketEntity(): NovaECS.Entity {
+    public static createBasketEntity(): NovaECS.Entity
+    {
         const entity = new NovaECS.Entity();
         entity.id = EEntityIDs.Basket;
 

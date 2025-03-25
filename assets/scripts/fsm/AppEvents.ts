@@ -1,3 +1,4 @@
-export enum AppEvents {
+export enum AppEvents
+{
 
 }

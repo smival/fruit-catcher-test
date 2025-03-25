@@ -1,22 +1,22 @@
-import { _decorator, Component, CCString, Label, Enum } from 'cc';
+import {_decorator, CCString, Component, Enum, Label} from 'cc';
 import {formatHandlers, FormatType} from "../../utils/FormatUtils";
 import {inject} from "../../injects/inject";
 import {GameState} from "../../state/GameState";
 
-const { ccclass, menu, property, requireComponent } = _decorator;
+const {ccclass, menu, property, requireComponent} = _decorator;
 
 @ccclass('UICounter')
 @menu('**App/UI/UICounter')
 @requireComponent(Label)
 export class CocosUICounter extends Component
 {
-	@property({ type: CCString })
+	@property({type: CCString})
 	public property: string;
 
-	@property({ type: Enum(FormatType) })
+	@property({type: Enum(FormatType)})
 	public formatter: FormatType = FormatType.NoFormat;
 
-	private _label:Label;
+	private _label: Label;
 	private _state: GameState = inject(GameState);
 
 	onLoad(): void

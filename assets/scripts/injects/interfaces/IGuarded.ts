@@ -1,7 +1,8 @@
 import {IGuard} from "./IGuard";
 
-export interface IGuarded<T> {
-    withGuards(...guards: IGuard[]): T;
+export interface IGuarded<T>
+{
+	withGuards(...guards: IGuard[]): T;
 
-    executionAllowedByGuards(eventData?: any): boolean;
+	executionAllowedByGuards(eventData?: any): boolean;
 }

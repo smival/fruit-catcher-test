@@ -8,9 +8,11 @@ import {Constructor} from "../type/Type";
  *
  * @return {Function} The class decorator
  */
-export function singleton<T>(): (target: Constructor<T>) => void {
-    return function (target: Constructor<T>): void {
-        injectable()(target);
-        classMap.get(target).asSingleton();
-    };
+export function singleton<T>(): (target: Constructor<T>) => void
+{
+	return function (target: Constructor<T>): void
+	{
+		injectable()(target);
+		classMap.get(target).asSingleton();
+	};
 }

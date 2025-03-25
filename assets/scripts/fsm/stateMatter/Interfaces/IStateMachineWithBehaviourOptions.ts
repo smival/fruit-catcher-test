@@ -1,4 +1,4 @@
-import { StateMachineBehaviorEnum } from "../Enum/StateMachineBehaviorEnum";
+import {StateMachineBehaviorEnum} from "../Enum/StateMachineBehaviorEnum";
 
 /**
  * A state machine with behavior options interface defines
@@ -6,16 +6,17 @@ import { StateMachineBehaviorEnum } from "../Enum/StateMachineBehaviorEnum";
  */
 export interface IStateMachineWithBehaviourOptions
 {
-  /**
-   * Set the behaviour option to the state machine.
-   * @param pMachineBehaviourOption - A state machine behaviour option.
-   * @constructor
-   */
-  SetBehaviourOption(pMachineBehaviourOption: StateMachineBehaviorEnum): void;
-  /**
-   * Unset the specific option from the state machine behavior
-   * @param pMachineBehaviourOption - A state machine behavior option.
-   * @constructor
-   */
-  UnsetBehaviourOption(pMachineBehaviourOption: StateMachineBehaviorEnum): void;
+	/**
+	 * Set the behaviour option to the state machine.
+	 * @param pMachineBehaviourOption - A state machine behaviour option.
+	 * @constructor
+	 */
+	SetBehaviourOption(pMachineBehaviourOption: StateMachineBehaviorEnum): void;
+
+	/**
+	 * Unset the specific option from the state machine behavior
+	 * @param pMachineBehaviourOption - A state machine behavior option.
+	 * @constructor
+	 */
+	UnsetBehaviourOption(pMachineBehaviourOption: StateMachineBehaviorEnum): void;
 }

@@ -1,59 +1,73 @@
 import {IGuard} from "../interfaces/IGuard";
 import {IMapping} from "../interfaces/IMapping";
 
-export class Mapping implements IMapping {
-    private guards: IGuard[] = [];
-    private executeOnce: boolean = false;
+export class Mapping implements IMapping
+{
+	private guards: IGuard[] = [];
+	private executeOnce: boolean = false;
 
-    isOnce(): boolean {
-        return this.executeOnce;
-    }
+	static extractAllProperties(mapping: IMapping): string[]
+	{
+		const result: string[] = [];
 
-    once(): IMapping {
-        this.executeOnce = true;
-        return this;
-    }
+		for (const key in mapping)
+		{
+			if (mapping.hasOwnProperty(key) && key !== "guards" && key !== "executeOnce")
+			{
+				result.push(key);
+			}
+		}
+		return result;
+	}
 
-    withGuards(...guards: any[]): IMapping {
-        Array.prototype.push.apply(this.guards, guards);
-        return this;
-    }
+	isOnce(): boolean
+	{
+		return this.executeOnce;
+	}
 
-    executionAllowedByGuards(data?: any): boolean {
+	once(): IMapping
+	{
+		this.executeOnce = true;
+		return this;
+	}
 
-        for (const guard of this.guards) {
-            if (!guard(data)) {
-                return false;
-            }
-        }
+	withGuards(...guards: any[]): IMapping
+	{
+		Array.prototype.push.apply(this.guards, guards);
+		return this;
+	}
 
-        return true;
-    }
+	executionAllowedByGuards(data?: any): boolean
+	{
 
-    createFilter(filterFields?: Object & { [key: string]: any }): Object {
-        if (!filterFields) {
-            return {};
-        }
-        const result: { [key: string]: any } = {};
-        const propertiesInMapping: string[] = Mapping.extractAllProperties(this);
-        for (const property of propertiesInMapping) {
-            if (property in filterFields && typeof (this as any)[property] === typeof filterFields[property]) {
-                result[property] = filterFields[property];
-            }
-        }
-        return result;
+		for (const guard of this.guards)
+		{
+			if (!guard(data))
+			{
+				return false;
+			}
+		}
 
-    }
+		return true;
+	}
 
-    static extractAllProperties(mapping: IMapping): string[] {
-        const result: string[] = [];
+	createFilter(filterFields?: Object & { [key: string]: any }): Object
+	{
+		if (!filterFields)
+		{
+			return {};
+		}
+		const result: { [key: string]: any } = {};
+		const propertiesInMapping: string[] = Mapping.extractAllProperties(this);
+		for (const property of propertiesInMapping)
+		{
+			if (property in filterFields && typeof (this as any)[property] === typeof filterFields[property])
+			{
+				result[property] = filterFields[property];
+			}
+		}
+		return result;
 
-        for (const key in mapping) {
-            if (mapping.hasOwnProperty(key) && key !== "guards" && key !== "executeOnce") {
-                result.push(key);
-            }
-        }
-        return result;
-    }
+	}
 
 }

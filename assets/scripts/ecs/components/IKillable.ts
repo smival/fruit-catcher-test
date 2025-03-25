@@ -1,3 +1,4 @@
-export interface IKillableProps {
+export interface IKillableProps
+{
 	killed: boolean;
 }

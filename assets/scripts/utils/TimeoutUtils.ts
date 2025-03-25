@@ -11,8 +11,9 @@ export class TimeoutUtils
 	protected static maxInteger: number;
 	private static readonly timers: IAssociativeArray<Tween<any>> = {};
 
-	static delay(ms: number): Promise<void> {
-    return new Promise(resolve => TimeoutUtils.setTimeout(resolve, ms));
+	static delay(ms: number): Promise<void>
+	{
+		return new Promise(resolve => TimeoutUtils.setTimeout(resolve, ms));
 	}
 
 	static getTimeOutPromise(timeOut: number): Promise<void>

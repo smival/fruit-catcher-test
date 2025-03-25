@@ -1,7 +1,8 @@
 export type DynamicObject = Partial<Dynamic>;
 
-export interface Dynamic {
-    [key: string]: any;
+export interface Dynamic
+{
+	[key: string]: any;
 }
 
 export type Abstract<T> = Exclude<Function & { prototype: T }, Constructor<T>>;

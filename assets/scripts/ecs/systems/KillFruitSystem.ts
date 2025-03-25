@@ -5,14 +5,15 @@ import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {NodeNames} from "../../NodeNames";
 import {PositionComponent} from "../components/PositionComponent";
-import {ViewComponent} from "../components/ViewComponent";
 
-export class KillFruitSystem extends NovaECS.System {
+export class KillFruitSystem extends NovaECS.System
+{
     private killZone: Node;
     protected family?: NovaECS.Family;
     private _engine: GameEngine | null = null;
 
-    onAttach(engine: GameEngine): void {
+    onAttach(engine: GameEngine): void
+    {
         super.onAttach(engine);
 
         this.killZone = find(NodeNames.ZoneKill);
@@ -23,18 +24,23 @@ export class KillFruitSystem extends NovaECS.System {
             .build();
     }
 
-    public update(engine: GameEngine, delta: number): void {
+    public update(engine: GameEngine, delta: number): void
+    {
         const killZoneY: number = this.killZone.getWorldPosition().y;
-        for (let i = 0; i < this.family.entities.length; i++) {
+        for (let i = 0; i < this.family.entities.length; i++)
+        {
             const entity = this.family.entities[i];
             const posComp = entity.getComponent(PositionComponent);
-            if (posComp) {
-                if (posComp.currentY < killZoneY) {
+            if (posComp)
+            {
+                if (posComp.currentY < killZoneY)
+                {
                     engine.removeEntity(entity);
                 }
             }
             const hitComp = entity.getComponent(HitComponent);
-            if (hitComp.killed) {
+            if (hitComp.killed)
+            {
                 engine.removeEntity(entity);
             }
         }

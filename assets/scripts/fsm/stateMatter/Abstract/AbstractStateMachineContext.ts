@@ -1,5 +1,5 @@
-import { IStateMachineContext } from "../Interfaces/IStateMachineContext";
-import { IBaseStateMachine } from "../Interfaces/IBaseStateMachine";
+import {IStateMachineContext} from "../Interfaces/IStateMachineContext";
+import {IBaseStateMachine} from "../Interfaces/IBaseStateMachine";
 
 /**
  * Abstract and basic state machine.
@@ -7,21 +7,21 @@ import { IBaseStateMachine } from "../Interfaces/IBaseStateMachine";
  */
 export class AbstractStateMachineContext<TContext, TEvent> implements IStateMachineContext<TContext, TEvent>
 {
-  protected _stateMachine: IBaseStateMachine<TContext, TEvent>
+	protected _stateMachine: IBaseStateMachine<TContext, TEvent>
 
-  constructor(pStateMachine: IBaseStateMachine<TContext, TEvent>)
-  {
-    this._stateMachine = pStateMachine;
-  }
+	constructor(pStateMachine: IBaseStateMachine<TContext, TEvent>)
+	{
+		this._stateMachine = pStateMachine;
+	}
 
-  Reset(): void
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  {
+	get StateMachine(): IBaseStateMachine<TContext, TEvent>
+	{
+		return this._stateMachine;
+	}
 
-  }
+	Reset(): void
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	{
 
-  get StateMachine(): IBaseStateMachine<TContext, TEvent>
-  {
-    return this._stateMachine;
-  }
+	}
 }

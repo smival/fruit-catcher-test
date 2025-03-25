@@ -1,4 +1,5 @@
-export enum FormatType {
+export enum FormatType
+{
 	NoFormat,
 	MMss,
 	TotalPoints,
@@ -14,7 +15,8 @@ export class FormatUtils
 
 	public static toMMss(value: number): string
 	{
-		if (value < 0 || !Number.isFinite(value)) {
+		if (value < 0 || !Number.isFinite(value))
+		{
 			throw new Error("Invalid input: must be a non-negative finite number");
 		}
 

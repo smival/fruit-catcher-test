@@ -1,3 +1,4 @@
-export enum PrefabNames {
+export enum PrefabNames
+{
 	ItemPoints = "UI/ItemPoints",
 }

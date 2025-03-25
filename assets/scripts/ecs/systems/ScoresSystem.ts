@@ -8,33 +8,38 @@ import {EntitiesFactory} from "../../factories/EntitiesFactory";
 import {PositionComponent} from "../components/PositionComponent";
 import {Vec3} from "cc";
 
-export class ScoresSystem extends NovaECS.System {
-    protected family?: NovaECS.Family;
-    protected gameState: GameState = inject(GameState);
+export class ScoresSystem extends NovaECS.System
+{
+	protected family?: NovaECS.Family;
+	protected gameState: GameState = inject(GameState);
 
-    onAttach(engine: GameEngine): void {
-        super.onAttach(engine);
-        this.family = new NovaECS.FamilyBuilder(engine)
-            .include(FruitComponent)
-            .include(HitComponent)
-            .build();
-    }
+	onAttach(engine: GameEngine): void
+	{
+		super.onAttach(engine);
+		this.family = new NovaECS.FamilyBuilder(engine)
+			.include(FruitComponent)
+			.include(HitComponent)
+			.build();
+	}
 
-    public update(engine: GameEngine, delta: number): void {
-        for (let i = 0; i < this.family.entities.length; i++) {
-            const entity = this.family.entities[i];
-            const hitComp = entity.getComponent(HitComponent);
+	public update(engine: GameEngine, delta: number): void
+	{
+		for (let i = 0; i < this.family.entities.length; i++)
+		{
+			const entity = this.family.entities[i];
+			const hitComp = entity.getComponent(HitComponent);
 
-            if (hitComp.killed) {
-                const fruitComp = entity.getComponent(FruitComponent);
-                const posComp = entity.getComponent(PositionComponent);
+			if (hitComp.killed)
+			{
+				const fruitComp = entity.getComponent(FruitComponent);
+				const posComp = entity.getComponent(PositionComponent);
 
-                engine.addEntity(EntitiesFactory.createFloatingLabelEntity(
-                    new Vec3(posComp.currentX, posComp.currentY), fruitComp.points)
-                );
-                this.gameState.addScore(fruitComp.points);
-            }
-        }
+				engine.addEntity(EntitiesFactory.createFloatingLabelEntity(
+					new Vec3(posComp.currentX, posComp.currentY), fruitComp.points)
+				);
+				this.gameState.addScore(fruitComp.points);
+			}
+		}
 
-    }
+	}
 }

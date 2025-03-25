@@ -1,20 +1,25 @@
 import {IPool} from "./IPool";
 
-export abstract class AbstractPool<T> implements IPool<T> {
+export abstract class AbstractPool<T> implements IPool<T>
+{
 	protected readonly objects: T[] = [];
 
-	init(pSize: number) {
-		for (let i = 0; i < pSize; i++) {
+	init(pSize: number)
+	{
+		for (let i = 0; i < pSize; i++)
+		{
 			this.release(this.createNewInstance());
 		}
 		return this;
 	}
 
-	obtain(): T {
+	obtain(): T
+	{
 		return this.objects.pop() || this.createNewInstance();
 	}
 
-	release(pObject: T): void {
+	release(pObject: T): void
+	{
 		this.objects.push(pObject);
 	}
 

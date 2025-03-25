@@ -2,7 +2,8 @@ import {AbstractBaseState} from "../stateMatter/Abstract/AbstractBaseState";
 import {AppContext} from "../AppContext";
 import {GameEngine} from "../../ecs/GameEngine";
 
-export class PlayGameState extends AbstractBaseState<AppContext>{
+export class PlayGameState extends AbstractBaseState<AppContext>
+{
 	private readonly _game = GameEngine.instance;
 
 	public Execute()

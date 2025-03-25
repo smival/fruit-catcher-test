@@ -1,9 +1,10 @@
 import {IGuarded} from "./IGuarded";
 
-export interface IMapping extends IGuarded<IMapping> {
-    once(): IMapping;
+export interface IMapping extends IGuarded<IMapping>
+{
+	once(): IMapping;
 
-    isOnce(): boolean;
+	isOnce(): boolean;
 
-    createFilter(filterFields?: Object): Object;
+	createFilter(filterFields?: Object): Object;
 }

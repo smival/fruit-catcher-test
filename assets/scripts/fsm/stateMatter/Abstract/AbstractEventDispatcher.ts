@@ -3,8 +3,11 @@ import {Component} from "cc";
 export interface IAbstractEventDispatcher<TEvents>
 {
 	addEventListener(pEvent: TEvents, pCallback: (pData: any) => void);
+
 	removeEventListener(pEvent: TEvents, pCallback: (pData: any) => void);
+
 	dispatch(pEvent: TEvents, pData: any);
+
 	removeAllListeners();
 }
 
@@ -51,8 +54,7 @@ export abstract class AbstractEventDispatcher<TEvents> extends Component impleme
 			const eventCallBacks = this.callbacksForDelete.get(pEvent);
 			eventCallBacks.push(pCallback);
 			this.callbacksForDelete.set(pEvent, eventCallBacks);
-		}
-		else
+		} else
 		{
 			this.callbacksForDelete.set(pEvent, [pCallback]);
 		}

@@ -1,3 +1,4 @@
-export enum EItemsCategory {
+export enum EItemsCategory
+{
 	A, B, C
 }

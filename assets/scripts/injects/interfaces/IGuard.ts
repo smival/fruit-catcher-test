@@ -1,3 +1,4 @@
-export interface IGuard {
-    (data?: any): boolean;
+export interface IGuard
+{
+	(data?: any): boolean;
 }

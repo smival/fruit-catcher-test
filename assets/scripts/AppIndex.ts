@@ -7,7 +7,7 @@ import {PlayGameState} from "./fsm/states/PlayGameState";
 import {GameOverState} from "./fsm/states/GameOverState";
 import {NodeNames} from "./NodeNames";
 
-const { ccclass, menu } = _decorator;
+const {ccclass, menu} = _decorator;
 
 @ccclass('AppIndex')
 @menu('**App/AppIndex')
@@ -16,7 +16,8 @@ export class AppIndex extends Component
 	private _stateMachine: AppStateMachine;
 	private _context: AppContext;
 
-	onLoad() {
+	onLoad()
+	{
 		this._stateMachine = new AppStateMachine();
 		this._context = new AppContext(this._stateMachine);
 		this._stateMachine.Context = this._context;
@@ -43,7 +44,8 @@ export class AppIndex extends Component
 		this._stateMachine.Run();
 	}
 
-	update(dt: number): void {
+	update(dt: number): void
+	{
 		this._context.onUpdate?.(dt);
 	}
 }

@@ -1,4 +1,4 @@
-import {Node, Label} from "cc";
+import {Label, Node} from "cc";
 import {TerminableContext} from "./stateMatter/Terminable/TerminableContext";
 import {AppEvents} from "./AppEvents";
 import {IStateMachineContext} from "./stateMatter/Interfaces/IStateMachineContext";

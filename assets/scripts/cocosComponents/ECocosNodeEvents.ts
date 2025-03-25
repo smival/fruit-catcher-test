@@ -1,3 +1,4 @@
-export enum ECocosNodeEvents {
+export enum ECocosNodeEvents
+{
 	AnimationComplete = 'animationComplete'
 }
