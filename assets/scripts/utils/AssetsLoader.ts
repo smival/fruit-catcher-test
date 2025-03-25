@@ -7,6 +7,7 @@ export class AssetsLoader {
 			resources.load(path, JsonAsset, (err, jsonAsset) => {
 				if (err) {
 					reject(err);
+					console.error(err.message);
 					return;
 				}
 				resolve(jsonAsset.json as T);
@@ -20,6 +21,7 @@ export class AssetsLoader {
 			resources.load(path, Prefab, (err, prefab) => {
 				if (err) {
 					reject(err);
+					console.error(err.message);
 					return;
 				}
 				resolve(prefab);

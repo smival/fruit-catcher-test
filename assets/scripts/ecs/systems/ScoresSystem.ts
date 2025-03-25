@@ -29,7 +29,6 @@ export class ScoresSystem extends NovaECS.System {
                 const fruitComp = entity.getComponent(FruitComponent);
                 const posComp = entity.getComponent(PositionComponent);
 
-                engine.removeEntity(entity);
                 engine.addEntity(EntitiesFactory.createFloatingLabelEntity(
                     new Vec3(posComp.currentX, posComp.currentY), fruitComp.points)
                 );

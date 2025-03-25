@@ -34,8 +34,7 @@ export class KillFruitSystem extends NovaECS.System {
                 }
             }
             const hitComp = entity.getComponent(HitComponent);
-            const viewComp = entity.getComponent(ViewComponent);
-            if (hitComp.killed || viewComp.killed) {
+            if (hitComp.killed) {
                 engine.removeEntity(entity);
             }
         }

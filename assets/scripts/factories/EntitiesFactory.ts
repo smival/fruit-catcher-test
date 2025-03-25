@@ -11,10 +11,18 @@ import {PositionComponent} from "../ecs/components/PositionComponent";
 import {CocosFactory, FloatingLabelData} from "./CocosFactory";
 import {FormatType} from "../utils/FormatUtils";
 
+export enum EEntityIDs {
+    FloatingLabel = "FloatingLabel",
+    Fruit = "Fruit",
+    Basket = "Basket"
+}
+
 export class EntitiesFactory {
     public static createFloatingLabelEntity(worldPosition: Vec3, score: number): NovaECS.Entity
     {
         const entity = new NovaECS.Entity();
+        entity.id = EEntityIDs.FloatingLabel;
+
         const viewComp = entity.putComponent(ViewComponent<FloatingLabelData>)
         viewComp.prefabPath = PrefabNames.ItemPoints;
         viewComp.data = {score, formatter: FormatType.FloatingPoints};
@@ -26,6 +34,7 @@ export class EntitiesFactory {
 
     public static createFruitEntity(fruit: FruitItem, spawnZone: Node): NovaECS.Entity {
         const entity = new NovaECS.Entity();
+        entity.id = EEntityIDs.Fruit;
 
         entity.putComponent(FruitComponent);
         const fruitComponent = entity.getComponent<FruitComponent>(FruitComponent);
@@ -52,6 +61,7 @@ export class EntitiesFactory {
 
     public static createBasketEntity(): NovaECS.Entity {
         const entity = new NovaECS.Entity();
+        entity.id = EEntityIDs.Basket;
 
         entity.putComponent(BasketComponent);
         entity.putComponent(PositionComponent);

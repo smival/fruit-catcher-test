@@ -1,5 +1,6 @@
-import {_decorator, Component, Label, Animation} from 'cc';
+import {_decorator, Component, Label} from 'cc';
 import {ECocosNodeEvents} from "../ECocosNodeEvents";
+import {AnimationsUtils} from "../../utils/AnimationsUtils";
 
 const { ccclass, menu, property } = _decorator;
 
@@ -10,10 +11,9 @@ export class CocosFloatingLabel extends Component
 	@property({ type: Label })
 	public label: Label;
 
-	onLoad()
+	onEnable()
 	{
-		const animation = this.label.node.getComponent(Animation);
-		animation.once(Animation.EventType.FINISHED, () => {
+		AnimationsUtils.playAnimation(this.label.node).then(() => {
 			this.node.emit(ECocosNodeEvents.AnimationComplete);
 		});
 	}

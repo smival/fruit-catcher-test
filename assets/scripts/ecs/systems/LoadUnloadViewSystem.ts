@@ -64,9 +64,9 @@ export class LoadUnloadViewSystem extends NovaECS.System implements EngineEntity
     }
 
     private async createNodeForEntity(entity: NovaECS.Entity, viewComp: ViewComponent): Promise<void> {
-        const prefab: Prefab = await AssetsLoader.loadPrefab(viewComp.prefabPath);
 
         if (!this._viewPoolMap.has(viewComp.prefabPath)) {
+            const prefab: Prefab = await AssetsLoader.loadPrefab(viewComp.prefabPath);
             this._viewPoolMap.set(viewComp.prefabPath, new ItemsPool(prefab).init(1));
         }
 
