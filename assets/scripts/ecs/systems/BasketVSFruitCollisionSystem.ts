@@ -4,7 +4,7 @@ import {FruitComponent} from "../components/FruitComponent";
 import {BasketComponent} from "../components/BasketComponent";
 import {HitComponent} from "../components/HitComponent";
 
-export class CollisionSystem extends NovaECS.System {
+export class BasketVSFruitCollisionSystem extends NovaECS.System {
     protected familyFruits?: NovaECS.Family;
     protected familyBasket?: NovaECS.Family;
 
@@ -37,7 +37,7 @@ export class CollisionSystem extends NovaECS.System {
                 if (!box2) continue;
 
                 if (box1.intersects(box2)) {
-                    hitComp.hitOccurred = true;
+                    hitComp.killed = true;
                 }
             }
         }

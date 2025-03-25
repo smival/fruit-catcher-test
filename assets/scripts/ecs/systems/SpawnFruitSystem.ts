@@ -7,7 +7,7 @@ import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {NodeNames} from "../../NodeNames";
 
-export class SpawnSystem extends NovaECS.System {
+export class SpawnFruitSystem extends NovaECS.System {
     private spawnZone: Node;
 
     protected family?: NovaECS.Family;

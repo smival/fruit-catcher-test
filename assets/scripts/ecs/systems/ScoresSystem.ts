@@ -25,7 +25,7 @@ export class ScoresSystem extends NovaECS.System {
             const entity = this.family.entities[i];
             const hitComp = entity.getComponent(HitComponent);
 
-            if (hitComp.hitOccurred) {
+            if (hitComp.killed) {
                 const fruitComp = entity.getComponent(FruitComponent);
                 const posComp = entity.getComponent(PositionComponent);
 

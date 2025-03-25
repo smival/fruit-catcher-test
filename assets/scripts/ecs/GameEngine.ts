@@ -2,15 +2,16 @@ import NovaECS from "@nova-engine/ecs";
 import {inject} from "../injects/inject";
 import {GameState} from "../state/GameState";
 import {GameConfig} from "../types/GameConfig";
-import {SpawnSystem} from "./systems/SpawnSystem";
-import {ViewSystem} from "./systems/ViewSystem";
+import {SpawnFruitSystem} from "./systems/SpawnFruitSystem";
+import {LoadUnloadViewSystem} from "./systems/LoadUnloadViewSystem";
 import {BasketMovementSystem} from "./systems/BasketMovementSystem";
 import {Utils} from "../utils/Utils";
-import {CollisionSystem} from "./systems/CollisionSystem";
+import {BasketVSFruitCollisionSystem} from "./systems/BasketVSFruitCollisionSystem";
 import {ScoresSystem} from "./systems/ScoresSystem";
 import {ItemsPool} from "../pool/ItemsPool";
 import {MovementsSystem} from "./systems/MovementsSystem";
-import {KillSystem} from "./systems/KillSystem";
+import {KillFruitSystem} from "./systems/KillFruitSystem";
+import {KillViewSystem} from "./systems/KillViewSystem";
 
 export class GameEngine extends NovaECS.Engine {
     private _gameState: GameState = inject(GameState);
@@ -76,13 +77,14 @@ export class GameEngine extends NovaECS.Engine {
 
     private _initSystems(): void {
         this._systemsList = [
-            new SpawnSystem(),
+            new SpawnFruitSystem(),
             new MovementsSystem(),
-            new ViewSystem(this._viewPoolMap),
-            new CollisionSystem(),
+            new LoadUnloadViewSystem(this._viewPoolMap),
+            new BasketVSFruitCollisionSystem(),
             new ScoresSystem(),
             new BasketMovementSystem(),
-            new KillSystem(),
+            new KillFruitSystem(),
+            new KillViewSystem()
         ];
 
         this._systemsList.forEach(system => this.addSystem(system));

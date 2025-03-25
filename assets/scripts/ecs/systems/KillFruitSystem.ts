@@ -5,8 +5,9 @@ import {GameEngine} from "../GameEngine";
 import {HitComponent} from "../components/HitComponent";
 import {NodeNames} from "../../NodeNames";
 import {PositionComponent} from "../components/PositionComponent";
+import {ViewComponent} from "../components/ViewComponent";
 
-export class KillSystem extends NovaECS.System {
+export class KillFruitSystem extends NovaECS.System {
     private killZone: Node;
     protected family?: NovaECS.Family;
     private _engine: GameEngine | null = null;
@@ -33,7 +34,8 @@ export class KillSystem extends NovaECS.System {
                 }
             }
             const hitComp = entity.getComponent(HitComponent);
-            if (hitComp.hitOccurred) {
+            const viewComp = entity.getComponent(ViewComponent);
+            if (hitComp.killed || viewComp.killed) {
                 engine.removeEntity(entity);
             }
         }

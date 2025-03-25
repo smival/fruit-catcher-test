@@ -9,7 +9,7 @@ import {CocosHitComponent} from "../../cocosComponents/CocosHitComponent";
 import {NodeNames} from "../../NodeNames";
 import {PositionComponent} from "../components/PositionComponent";
 
-export class ViewSystem extends NovaECS.System implements EngineEntityListener {
+export class LoadUnloadViewSystem extends NovaECS.System implements EngineEntityListener {
     protected family?: NovaECS.Family;
     private _viewPoolMap: Map<string, ItemsPool>;
     private _toAdd: Entity[] = [];
@@ -39,7 +39,7 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
         this._toAdd = [];
 
         this._toRemove.forEach((entity) => {
-            this.killEntity(entity);
+            this.killEntityView(entity);
         });
         this._toRemove = [];
 
@@ -53,7 +53,7 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
         };
     }
 
-    private killEntity(entity:Entity): void
+    private killEntityView(entity:Entity): void
     {
         const viewComp = entity.getComponent<ViewComponent>(ViewComponent);
         if (viewComp.node) {
@@ -102,7 +102,7 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
     public onDetach(engine: Engine)
     {
         this.family.entities.forEach(entity => {
-            this.killEntity(entity);
+            this.killEntityView(entity);
         });
         super.onDetach(engine);
     }
