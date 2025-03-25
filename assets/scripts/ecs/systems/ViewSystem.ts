@@ -77,6 +77,7 @@ export class ViewSystem extends NovaECS.System implements EngineEntityListener {
         if (parent) {
             parent.addChild(node);
             entity.getComponent(ViewComponent).node = node;
+
             // ant view can bit hit (optional)
             if (entity.hasComponent(HitComponent)
                 && node.getComponent(CocosHitComponent))

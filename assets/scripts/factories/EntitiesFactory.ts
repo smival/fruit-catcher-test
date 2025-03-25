@@ -1,20 +1,24 @@
 import NovaECS from "@nova-engine/ecs";
-import { FruitItem } from "../types/GameConfig";
-import { FruitComponent } from "../ecs/components/FruitComponent";
-import { MovementComponent } from "../ecs/components/MovementComponent";
-import { BasketComponent } from "../ecs/components/BasketComponent";
-import { view, Node, UITransform } from "cc";
+import {FruitItem} from "../types/GameConfig";
+import {FruitComponent} from "../ecs/components/FruitComponent";
+import {MovementComponent} from "../ecs/components/MovementComponent";
+import {BasketComponent} from "../ecs/components/BasketComponent";
+import {Node, UITransform, Vec3, view} from "cc";
 import {ViewComponent} from "../ecs/components/ViewComponent";
 import {HitComponent} from "../ecs/components/HitComponent";
-import {Vec3} from "cc";
 import {PrefabNames} from "../PrefabNames";
 import {PositionComponent} from "../ecs/components/PositionComponent";
+import {CocosFactory, FloatingLabelData} from "./CocosFactory";
+import {FormatType} from "../utils/FormatUtils";
 
 export class EntitiesFactory {
-    public static createScoreEntity(worldPosition: Vec3, score: number): NovaECS.Entity
+    public static createFloatingLabelEntity(worldPosition: Vec3, score: number): NovaECS.Entity
     {
         const entity = new NovaECS.Entity();
-        entity.putComponent(ViewComponent).prefabPath = PrefabNames.ItemPoints;
+        const viewComp = entity.putComponent(ViewComponent<FloatingLabelData>)
+        viewComp.prefabPath = PrefabNames.ItemPoints;
+        viewComp.data = {score, formatter: FormatType.FloatingPoints};
+        viewComp.factoryFunc = CocosFactory.buildFloatingLabel;
         entity.putComponent(PositionComponent).currentX = worldPosition.x;
         entity.getComponent(PositionComponent).currentY = worldPosition.y;
         return entity;

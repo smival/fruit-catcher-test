@@ -1,7 +1,8 @@
 export enum FormatType {
 	NoFormat,
 	MMss,
-	TotalPoints
+	TotalPoints,
+	FloatingPoints
 }
 
 export class FormatUtils
@@ -27,10 +28,16 @@ export class FormatUtils
 	{
 		return value.toString();
 	}
+
+	public static toFloatingPoints(value: number): string
+	{
+		return `+${value.toString()}`;
+	}
 }
 
 export const formatHandlers = {
 	[FormatType.NoFormat]: FormatUtils.noFormat,
 	[FormatType.MMss]: FormatUtils.toMMss,
-	[FormatType.TotalPoints]: FormatUtils.toTotalPoints
+	[FormatType.TotalPoints]: FormatUtils.toTotalPoints,
+	[FormatType.FloatingPoints]: FormatUtils.toFloatingPoints
 }

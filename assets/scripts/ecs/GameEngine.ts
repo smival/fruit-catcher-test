@@ -80,9 +80,9 @@ export class GameEngine extends NovaECS.Engine {
             new MovementsSystem(),
             new ViewSystem(this._viewPoolMap),
             new CollisionSystem(),
-            new KillSystem(),
             new ScoresSystem(),
-            new BasketMovementSystem()
+            new BasketMovementSystem(),
+            new KillSystem(),
         ];
 
         this._systemsList.forEach(system => this.addSystem(system));
