@@ -1,7 +1,6 @@
 import {AbstractBaseState} from "../stateMatter/Abstract/AbstractBaseState";
 import {AppContext} from "../AppContext";
 import {Button} from "cc";
-import {GameEngine} from "../../ecs/GameEngine";
 
 export class GameOverState extends AbstractBaseState<AppContext>
 {
@@ -11,7 +10,7 @@ export class GameOverState extends AbstractBaseState<AppContext>
 		this._context.starterNode.on(Button.EventType.CLICK, () =>
 		{
 			this._context.starterNode.off(Button.EventType.CLICK);
-			GameEngine.instance.clean();
+			this._context.gameEngine.clean();
 			super.Execute();
 		});
 	}
