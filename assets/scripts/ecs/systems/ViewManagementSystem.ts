@@ -93,7 +93,6 @@ export class ViewManagementSystem extends NovaECS.System implements EngineEntity
 
     private async createNodeForEntity(entity: NovaECS.Entity, viewComp: ViewComponent): Promise<void>
     {
-
         if (!this._viewPoolMap.has(viewComp.prefabPath))
         {
             const prefab: Prefab = await AssetsLoader.loadPrefab(viewComp.prefabPath);

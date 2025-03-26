@@ -953,7 +953,7 @@
     "propertyPath": [
       "_string"
     ],
-    "value": "loading..."
+    "value": "Loading..."
   },
   {
     "__type__": "cc.TargetInfo",

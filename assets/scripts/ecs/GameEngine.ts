@@ -12,30 +12,17 @@ import {ItemsPool} from "../pool/ItemsPool";
 import {MovementsSystem} from "./systems/MovementsSystem";
 import {KillFruitSystem} from "./systems/KillFruitSystem";
 import {KillViewSystem} from "./systems/KillViewSystem";
+import {singleton} from "../injects/decorators/singleton";
 
+@singleton()
 export class GameEngine extends NovaECS.Engine
 {
-	private static _instance: GameEngine;
 	private _gameState: GameState = inject(GameState);
 	private readonly _gameSpeed: number = 1;
 	private _time = 0;
 	private _systemsList: NovaECS.System[] = [];
 	private _config: GameConfig | null = null;
 	private _viewPoolMap: Map<string, ItemsPool> = new Map<string, ItemsPool>(); // prefab path / pool
-
-	constructor()
-	{
-		super();
-	}
-
-	public static get instance(): GameEngine
-	{
-		if (!GameEngine._instance)
-		{
-			GameEngine._instance = new GameEngine();
-		}
-		return GameEngine._instance;
-	}
 
 	public get config(): GameConfig
 	{

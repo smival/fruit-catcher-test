@@ -10,6 +10,7 @@ import {PrefabNames} from "../PrefabNames";
 import {PositionComponent} from "../ecs/components/PositionComponent";
 import {CocosFactory, FloatingLabelData} from "./CocosFactory";
 import {FormatType} from "../utils/FormatUtils";
+import {PrefabsPaths} from "../PrefabsPaths";
 
 export enum EEntityIDs
 {
@@ -57,7 +58,7 @@ export class EntitiesFactory
         entity.putComponent(PositionComponent).currentX = randomX;
         entity.getComponent(PositionComponent).currentY = startY;
         entity.putComponent(MovementComponent).velocityY = -fruit.speed;
-        entity.putComponent(ViewComponent).prefabPath = `prefabs/fruits/type${fruit.category}/${fruit.type}`;
+        entity.putComponent(ViewComponent).prefabPath = PrefabsPaths.fruitPrefabPath(fruit.category, fruit.type);
         entity.putComponent(HitComponent);
 
         return entity;

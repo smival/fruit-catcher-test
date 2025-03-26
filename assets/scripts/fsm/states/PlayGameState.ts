@@ -1,10 +1,11 @@
 import {AbstractBaseState} from "../stateMatter/Abstract/AbstractBaseState";
 import {AppContext} from "../AppContext";
 import {GameEngine} from "../../ecs/GameEngine";
+import {inject} from "../../injects/inject";
 
 export class PlayGameState extends AbstractBaseState<AppContext>
 {
-	private readonly _game = GameEngine.instance;
+	private readonly _game = inject(GameEngine);
 
 	public Execute()
 	{
