@@ -28,22 +28,23 @@ export class BasketVSFruitCollisionSystem extends NovaECS.System
 	{
 		for (let i = 0; i < this.familyBasket.entities.length; i++)
 		{
-			const entity1 = this.familyBasket.entities[i];
-			const box1 = entity1.getComponent(HitComponent).hitTransform?.getBoundingBoxToWorld();
+			const basketEntity = this.familyBasket.entities[i];
+			const basketBox = basketEntity.getComponent(HitComponent).hitTransform?.getBoundingBoxToWorld();
 
-			if (!box1) continue;
+			if (!basketBox) continue;
 
 			for (let j = 0; j < this.familyFruits.entities.length; j++)
 			{
-				const entity2 = this.familyFruits.entities[j];
-				const hitComp = entity2.getComponent(HitComponent);
-				const box2 = hitComp.hitTransform?.getBoundingBoxToWorld();
+				const fruitEntity = this.familyFruits.entities[j];
+				const fruitHitComp = fruitEntity.getComponent(HitComponent);
+				const fruitBox = fruitHitComp.hitTransform?.getBoundingBoxToWorld();
 
-				if (!box2) continue;
+				if (!fruitBox) continue;
 
-				if (box1.intersects(box2))
+				if (basketBox.intersects(fruitBox)
+					&& fruitBox.y >= basketBox.y)
 				{
-					hitComp.killed = true;
+					fruitHitComp.killed = true;
 				}
 			}
 		}
